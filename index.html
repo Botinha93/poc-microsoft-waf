@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="style/style.css">
+        <title>Super Login!</title>
+    </head>
+    <body>
+        <div id="login">
+            <img src="res/logo.png" />
+            <h5>LOGIN DE MEMBROS</h5>
+                <div id="id" contenteditable="true" onclick="edit(event)" onfocusout="edit(event)" class="input">
+                  Usuario
+                </div>
+                <div id="pass" contenteditable="true" onclick="editp(event)" onfocusout="editp(event)"  class="input pass">
+                    Password
+                </div>
+                <input type="button" value="Login" onclick="login()"></input>
+        </div>
+        <script>
+            function edit(e){
+                if(e.target.textContent.includes('Usuario'))
+                    e.target.textContent = "  "
+                else if(e.target.textContent == '' || e.target.textContent == "  ")
+                    e.target.textContent = "Usuario"
+            }
+            function editp(e){
+                if(e.target.textContent.includes('Password'))
+                    e.target.textContent = "  "
+                else if(e.target.textContent == '' || e.target.textContent == "  ")
+                    e.target.textContent = "Password"
+            }
+            function login(){
+                var params ={
+                    id : document.getElementById('id').textContent.trim(),
+                    pass : document.getElementById('pass').textContent.trim(),
+                }
+                post("querry",params)
+            }
+            function post(path, params, method='post') {
+                const form = document.createElement('form');
+                form.method = method;
+                form.action = path;
+
+                for (const key in params) {
+                if (params.hasOwnProperty(key)) {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = key;
+                    hiddenField.value = params[key];
+
+                    form.appendChild(hiddenField);
+                }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+                }
+        </script>
+    </body>
+</html>
